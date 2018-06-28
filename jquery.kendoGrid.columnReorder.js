@@ -8,8 +8,12 @@
         function ObtenerIndiceColumnasNom()
         {
             var indiceColumnas = [];
-            grilla.columns.forEach(function (elemento, indice) {
-                indiceColumnas[elemento.field] = indice;
+            grilla.columns.forEach(function (elemento, indice)
+            {
+                if (elemento.field == undefined)
+                    indiceColumnas[elemento.title] = indice;
+                else
+                    indiceColumnas[elemento.field] = indice;
             });
             return indiceColumnas;
         }
@@ -19,7 +23,10 @@
             var indiceColumnas = [];
             grilla.columns.forEach(function (elemento, indice)
             {
-                indiceColumnas[indice] = elemento.field;
+                if (elemento.field == undefined)
+                    indiceColumnas[indice] = elemento.title;
+                else
+                    indiceColumnas[indice] = elemento.field;
             });
             return indiceColumnas;
         }
@@ -59,11 +66,13 @@
             var llaves = Object.keys(OrdenFinalColumnas);
             var IndicesColumnas;
             var indice;
+            var columna;
             for (var i = 0; i < llaves.length; i++)
             {
                 IndicesColumnas = ObtenerIndiceColumnasNom();
                 indice = OrdenFinalColumnas[llaves[i]]
-                grilla.reorderColumn(indice, grilla.columns[IndicesColumnas[llaves[i]]]);
+                columna = grilla.columns[IndicesColumnas[llaves[i]]];
+                grilla.reorderColumn(indice, columna);
             }
         }
 
@@ -75,7 +84,11 @@
             var newIndex = e.newIndex;
             var ordenColumnas = ObtenerIndiceColumnasPos(nombreGrilla);
             ordenColumnas[oldIndex] = "";
-            var aux = e.column.field;
+            var aux;
+            if (e.column.field != undefined)
+                aux = e.column.field;
+            else
+                aux = e.column.title;
             if (newIndex < oldIndex) //hacia la izq
             {
                 for (var i = oldIndex; i > newIndex; i--)
