@@ -11,7 +11,8 @@
             grilla.columns.forEach(function (elemento, indice)
             {
                 if (elemento.field == undefined)
-                    indiceColumnas[elemento.title] = indice;
+                    indiceColumnas[elemento.headerAttributes.title] = indice;
+                    //indiceColumnas[elemento.title] = indice;
                 else
                     indiceColumnas[elemento.field] = indice;
             });
@@ -24,7 +25,8 @@
             grilla.columns.forEach(function (elemento, indice)
             {
                 if (elemento.field == undefined)
-                    indiceColumnas[indice] = elemento.title;
+                    indiceColumnas[indice] = elemento.headerAttributes.title;
+                    //indiceColumnas[indice] = elemento.title;
                 else
                     indiceColumnas[indice] = elemento.field;
             });
@@ -88,7 +90,8 @@
             if (e.column.field != undefined)
                 aux = e.column.field;
             else
-                aux = e.column.title;
+                aux = e.column.headerAttributes.title;
+                //aux = e.column.title;
             if (newIndex < oldIndex) //hacia la izq
             {
                 for (var i = oldIndex; i > newIndex; i--)
